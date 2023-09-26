@@ -178,8 +178,21 @@ class EventsController extends BaseController
     public function getFutureEventsWithWorkshops()
     {
 
-        return Event::with('Workshops')
+        $futureEvent = Event::with('Workshops')
             ->join('workshops', 'workshops.event_id', '=', 'events.id')
             ->whereDate('workshops.start', '>', \Carbon\Carbon::today()->toDateString())->get();
+
+        $RecordSet = [];
+
+        foreach ($futureEvent as $events) {
+
+            if (sizeof($events->workshops) > 0) {
+
+                $RecordSet[] = $events;
+
+            }
+        }
+
+        return $RecordSet;
     }
 }
