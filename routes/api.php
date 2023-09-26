@@ -35,4 +35,11 @@ Route::group([
 
 });
 
-//events
+Route::group([
+    'prefix' => '',
+], function () {
+
+    Route::get('futureevents/', [EventsController::class, 'getFutureEventsWithWorkshops'])
+        ->name('getFutureEventsWithWorkshops');
+
+});

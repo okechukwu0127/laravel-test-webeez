@@ -177,6 +177,9 @@ class EventsController extends BaseController
 
     public function getFutureEventsWithWorkshops()
     {
-        //throw new \Exception('implement in coding task 2');
+
+        return Event::with('Workshops')
+            ->join('workshops', 'workshops.event_id', '=', 'events.id')
+            ->whereDate('workshops.start', '>', \Carbon\Carbon::today()->toDateString())->get();
     }
 }
