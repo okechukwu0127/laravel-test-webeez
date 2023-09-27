@@ -181,19 +181,22 @@ class EventsController extends BaseController
         $futureEvent = Event::with('Workshops')
             ->join('workshops', 'workshops.event_id', '=', 'events.id')
             ->whereDate('workshops.start', '>', \Carbon\Carbon::today()->toDateString())->get();
+        // can also use ->limit(3) as well
 
-        $RecordSet = [];
+        $recordSet = [];
 
+        //remove all records were workshops records are empty
         foreach ($futureEvent as $events) {
 
             if (sizeof($events->workshops) > 0) {
 
-                $RecordSet[] = $events;
+                $recordSet[] = $events;
 
             }
         }
 
-        return array_slice($RecordSet, 0, 3);
+        //return only first 3 records
+        return array_slice($recordSet, 0, 3);
 
     }
 }
