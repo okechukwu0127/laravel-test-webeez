@@ -193,6 +193,7 @@ class EventsController extends BaseController
             }
         }
 
-        return $RecordSet;
+        return array_slice($RecordSet, 0, 3);
+
     }
 }

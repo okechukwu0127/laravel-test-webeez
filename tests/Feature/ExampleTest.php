@@ -24,11 +24,11 @@ class ExampleTest extends TestCase
         $datePast = (new Carbon())->subYear()->setDay(21);
         $dateFuture = (new Carbon())->addYears(1);
 
-        $response = $this->get('/events');
+        $response = $this->get('/api/events');
         $response->assertStatus(200)
             ->assertJsonCount(3)
             ->assertJsonPath('0.name', 'Laravel convention '.$datePast->year)
-            
+
             //No workshop field in event table
             //->assertJsonPath('0.workshops.0.name', 'Illuminate your knowledge of the laravel code base')
             ->assertJsonPath('1.name', 'Laravel convention '.$dateFuture->year)
